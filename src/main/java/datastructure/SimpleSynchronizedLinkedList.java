@@ -8,19 +8,19 @@ public class SimpleSynchronizedLinkedList<E> implements SimpleList<E> {
     private Comparator<E> comparator;
 
     public SimpleSynchronizedLinkedList() {
-        this.head = null;
+        head = null;
     }
 
     public SimpleSynchronizedLinkedList(Comparator<E> comparator) {
-        this.head = null;
+        head = null;
         this.comparator = comparator;
     }
 
     @Override
     public synchronized void addFirst(E element) {
-        Node<E> temp = new Node<>(element);
-        temp.next = head;
-        head = temp;
+        Node<E> newNode = new Node<>(element);
+        newNode.next = head;
+        head = newNode;
     }
 
     @Override
@@ -33,9 +33,9 @@ public class SimpleSynchronizedLinkedList<E> implements SimpleList<E> {
 
     @Override
     public synchronized void addDescOrder(E element) {
-        Node<E> temp = new Node<>(element);
+        Node<E> newNode = new Node<>(element);
         if (head == null) {
-            head = temp;
+            head = newNode;
             return;
         }
 
@@ -46,13 +46,13 @@ public class SimpleSynchronizedLinkedList<E> implements SimpleList<E> {
             afterInsert = afterInsert.next;
         }
         if (afterInsert.next == null && compare(afterInsert.data, element) >= 0) {
-            afterInsert.next = temp;
+            afterInsert.next = newNode;
         } else {
-            temp.next = afterInsert;
+            newNode.next = afterInsert;
             if (afterInsert == head) {
-                head = temp;
+                head = newNode;
             } else {
-                beforeInsert.next = temp;
+                beforeInsert.next = newNode;
             }
         }
     }
@@ -90,6 +90,7 @@ public class SimpleSynchronizedLinkedList<E> implements SimpleList<E> {
         if (comparator != null) {
             return comparator.compare(o1, o2);
         }
+        // this throws ClassCastException if E does not implement Comparable
         return ((Comparable) o1).compareTo(o2);
     }
 
@@ -99,7 +100,7 @@ public class SimpleSynchronizedLinkedList<E> implements SimpleList<E> {
 
         Node(T data) {
             this.data = data;
-            this.next = null;
+            next = null;
         }
     }
 

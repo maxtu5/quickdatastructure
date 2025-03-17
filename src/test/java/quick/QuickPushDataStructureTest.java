@@ -68,15 +68,15 @@ class QuickPushDataStructureTest {
         QuickDataStructure<Person> structurePerson = new QuickPushDataStructure<>(new Comparator<Person>() {
             @Override
             public int compare(Person o1, Person o2) {
-                return o1.getName().compareTo(o2.getName());
+                return o1.getBirth().compareTo(o2.getBirth());
             }
         });
-        structurePerson.push(new Person("Smith", LocalDate.parse("1999-03-18")));
+        structurePerson.push(new Person("Smith", LocalDate.parse("1979-03-18")));
         structurePerson.push(new Person("Wissotzky", LocalDate.parse("2001-10-15")));
         structurePerson.push(new Person("Adams", LocalDate.parse("1988-08-21")));
         assertEquals("Wissotzky", structurePerson.pop().getName());
-        assertEquals("Smith", structurePerson.pop().getName());
         assertEquals("Adams", structurePerson.pop().getName());
+        assertEquals("Smith", structurePerson.pop().getName());
     }
 
     @Test
