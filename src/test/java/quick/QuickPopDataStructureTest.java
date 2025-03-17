@@ -65,12 +65,7 @@ class QuickPopDataStructureTest {
 
     @Test
     void testPerson() {
-        QuickDataStructure<Person> structurePerson = new QuickPopDataStructure<>(new Comparator<Person>() {
-            @Override
-            public int compare(Person o1, Person o2) {
-                return o1.getBirth().compareTo(o2.getBirth());
-            }
-        });
+        QuickDataStructure<Person> structurePerson = new QuickPopDataStructure<>(Comparator.comparing(Person::getBirth));
         structurePerson.push(new Person("Smith", LocalDate.parse("1979-03-18")));
         structurePerson.push(new Person("Wissotzky", LocalDate.parse("2001-10-15")));
         structurePerson.push(new Person("Adams", LocalDate.parse("1988-08-21")));
