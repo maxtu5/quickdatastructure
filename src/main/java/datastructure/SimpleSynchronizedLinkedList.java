@@ -2,6 +2,8 @@ package datastructure;
 
 import java.util.Comparator;
 
+import static java.lang.Thread.sleep;
+
 public class SimpleSynchronizedLinkedList<E> implements SimpleList<E> {
 
     private Node<E> head;
@@ -20,7 +22,18 @@ public class SimpleSynchronizedLinkedList<E> implements SimpleList<E> {
     public synchronized void addFirst(E element) {
         Node<E> temp = new Node<>(element);
         temp.next = head;
+
+        doSomethingLong();
+
         head = temp;
+    }
+
+    private void doSomethingLong() {
+        double a = 100.45334;
+        double b = 1.00453;
+        for (int i = 0; i < 100000; i++) {
+            a=a/b;
+        }
     }
 
     @Override
